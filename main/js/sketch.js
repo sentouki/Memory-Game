@@ -20,7 +20,7 @@ class Card {
   }
   render() {
     push();
-    // moving to top left card in the top left corner because of "rectMode(CENTER)"
+    // moving the top left card in the top left corner because of "rectMode(CENTER)"
     translate(((-width/2)+mcardWidth/2)+this.x,((-height/2)+mcardHeight/2)+this.y, 0);
     fill(this.upColor);
     stroke(this.stroke);
