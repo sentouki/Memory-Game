@@ -11,7 +11,7 @@ const rotateSpeed = 5
 const rotateLevitation = 0.6
 
 
-const testCard = new Card(0,0);
+const testCard = new Card(0, 0);
 
 class MemoryCard {
   constructor(x, y) {
@@ -24,10 +24,14 @@ class MemoryCard {
 
 // load images before setup 
 function preload() {
+  let i = 1
   // load same number of images as cards into array
-  // while (images.length < numRows * numColumns) {
-
-  // } 
+  while (images.length < numRows * numColumns) {
+    let image = loadImage("images/" + i + ".png")
+    images.push(image);
+    images.push(image);
+    i++;
+  }
 }
 
 function setup() {
@@ -36,22 +40,21 @@ function setup() {
   angleMode(DEGREES);
   for (let i = 0; i < numRows; i++) {
     for (let j = 0; j < numColumns; j++) {
-      tiles.push(new Card(i * mcardWidth + i*10+40, j * mcardHeight + j*10+40));
+      let randomImage = images.splice(images.length * Math.random() | 0, 1)[0];
+      tiles.push(new Card(i * mcardWidth + i * 10 + 40, j * mcardHeight + j * 10 + 40, randomImage));
     }
   }
 }
 
 function draw() {
   background(220);
-  tiles.forEach( tile => tile.render());
+  tiles.forEach(tile => tile.render());
 }
 
 function mouseClicked() {
-  //console.log(mouseX,mouseY);
   tiles.forEach(tile => {
-    if ((mouseX > tile.x && mouseX < tile.x + 100) && mouseY > tile.y && mouseY < tile.y + 150)  {
-        // console.log("Yeehaw:" + tile.x)
+    if ((mouseX > tile.x && mouseX < tile.x + 100) && mouseY > tile.y && mouseY < tile.y + 150) {
       tile.turn();
-        }
+    }
   })
 }
