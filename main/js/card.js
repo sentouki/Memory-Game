@@ -1,3 +1,6 @@
+const rotateSpeed = 5
+const rotateLevitation = 0.6
+
 // basic card class which represents card with two sides
 class Card {
   constructor(x, y, downSideImage, upperSideColor = [93, 81, 124], stroke = [255, 255, 255]) {

@@ -1,5 +1,6 @@
 let tiles = []
 let images = []
+let flipSound;
 
 const numRows = 4
 const numColumns = 3
@@ -7,22 +8,8 @@ const numColumns = 3
 const mcardWidth = 100
 const mcardHeight = 150
 
-const rotateSpeed = 5
-const rotateLevitation = 0.6
 
-
-const testCard = new Card(0, 0);
-
-class MemoryCard {
-  constructor(x, y) {
-    this.x = x
-    this.y = y
-    this.faceUp = false
-  }
-
-}
-
-// load images before setup 
+// load images and sounds before setup 
 function preload() {
   let i = 1
   // load same number of images as cards into array
@@ -32,6 +19,9 @@ function preload() {
     images.push(image);
     i++;
   }
+  // load sounds
+  soundFormats("ogg");
+  flipSound = loadSound("sounds/flip");
 }
 
 function setup() {
@@ -54,6 +44,7 @@ function draw() {
 function mouseClicked() {
   tiles.forEach(tile => {
     if ((mouseX > tile.x && mouseX < tile.x + 100) && mouseY > tile.y && mouseY < tile.y + 150) {
+      flipSound.play();
       tile.turn();
     }
   })
