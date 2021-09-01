@@ -8,6 +8,8 @@ const numColumns = 3
 const mcardWidth = 100
 const mcardHeight = 150
 
+const canvasBackground = '#90CCF4'
+
 
 // load images and sounds before setup 
 function preload() {
@@ -25,7 +27,9 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(520, 550, WEBGL);
+  let canvas = createCanvas(520, 550, WEBGL);
+  // add canvas as child to div to control its position easier 
+  canvas.parent("sketch")
   rectMode(CENTER);
   angleMode(DEGREES);
   for (let i = 0; i < numRows; i++) {
@@ -37,7 +41,7 @@ function setup() {
 }
 
 function draw() {
-  background(220);
+  background(canvasBackground);
   tiles.forEach(tile => tile.render());
 }
 

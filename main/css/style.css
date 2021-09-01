@@ -1,7 +1,45 @@
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
+  text-align: center;
+  background-color: #ececec;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
+
+.header_text {
+  border-bottom: 4px solid rgba(247, 136, 136, 1);
+  display: inline-block;
+}
+
 canvas {
-  display: block;
+  /* display: block; */
+  border-radius: 10px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.howto_text {
+  width: 60%;
+  margin: auto;
+}
+
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  bottom: 0;
+  /* background-color: #F78888; */
+  background: rgb(255, 105, 105);
+  background: radial-gradient(
+    circle,
+    rgba(255, 105, 105, 1) 0%,
+    rgba(247, 136, 136, 1) 54%,
+    rgba(236, 236, 236, 1) 100%
+  );
+  width: 100%;
+}
+
+.footer_item {
+  margin-left: 20px;
 }

@@ -7,9 +7,9 @@ class Card {
     this.x = x;
     this.y = y;
     this.downSideImage = downSideImage;
-    this.upColor = upperSideColor;
+    this.upColor = '#5DA2D5';
     // this.downColor = downSideColor;
-    this.stroke = stroke;
+    this.stroke = '#F3D250';
     this.faceUp = false;
     this.rot = 0;
   }
