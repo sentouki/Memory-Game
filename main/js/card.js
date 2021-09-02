@@ -7,17 +7,19 @@ class Card {
     this.x = x;
     this.y = y;
     this.downSideImage = downSideImage;
+    this.id = downSideImage.id;
     this.upColor = upperSideColor;
     // this.downColor = downSideColor;
     this.stroke = stroke;
     this.faceUp = false;
+    this.isEnabled = true;
     this.rot = 0;
   }
   render() {
     push();
     // moving the top left card in the top left corner because of "rectMode(CENTER)"
     translate(((-width / 2) + mcardWidth / 2) + this.x, ((-height / 2) + mcardHeight / 2) + this.y, 0);
-    this.rotateCard(this.faceUp);
+    this.rotateCard();
 
     // upper side
     fill(this.upColor);
@@ -26,7 +28,7 @@ class Card {
 
     // down side
     translate(0, 0, -1);
-    texture(this.downSideImage)
+    texture(this.downSideImage.image);
     // fix the borders caused by making the down side smaller
     noStroke()
     rect(0, 0, mcardWidth - 10, mcardHeight / 1.5);
@@ -35,8 +37,8 @@ class Card {
   turn() {
     this.faceUp = !this.faceUp;
   }
-  rotateCard(faceUp) {
-    if (faceUp) {
+  rotateCard() {
+    if (this.faceUp) {
       if (this.rot < 180) {
         this.rot += rotateSpeed;
       }
