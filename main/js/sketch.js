@@ -20,6 +20,7 @@ const betweenCardsMargin = 10;
 let numOfMatchedCards = 0;
 let initialScore = 100;
 
+
 // load images and sounds before setup 
 function preload() {
   let i = 1
@@ -47,6 +48,9 @@ function setup() {
       tiles.push(new Card(i * mcardWidth + i * betweenCardsMargin + borderMargin, j * mcardHeight + j * betweenCardsMargin + borderMargin, randomImage));
     }
   }
+  // display initial values of the score and amount of matched cards
+  updateScore(initialScore)
+  updateNumOfMatchedCards(numOfMatchedCards)
 }
 
 function draw() {
@@ -73,6 +77,8 @@ function mouseClicked() {
               firstCard.isEnabled = tile.isEnabled = false;  // disable the cards so they're not clickable anymore
               firstCard = null; // reset
               numOfMatchedCards++;
+              console.log("numOfMatchedCards: ", numOfMatchedCards)
+              updateNumOfMatchedCards(numOfMatchedCards);
             }
             else {
               isMouseClickEnabled = false; // prevent the user from clicking any other cards
@@ -83,10 +89,20 @@ function mouseClicked() {
                 isMouseClickEnabled = true;
               }, 1000)
               initialScore -= 10;
+              console.log("initialScore: ", initialScore)
+              updateScore(initialScore)
             }
           }
         }
       }
     })
   }
+}
+
+function updateNumOfMatchedCards(num) {
+  document.getElementById("matched_cards").innerHTML = num;
+}
+
+function updateScore(num) {
+  document.getElementById("score").innerHTML = num;
 }
