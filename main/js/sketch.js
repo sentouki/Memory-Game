@@ -4,15 +4,21 @@ let flipSound;
 let firstCard;
 let isMouseClickEnabled = true;
 
+const canvasWidth = 550;
+const canvasHeight = 590;
+const canvasBackground = '#90CCF4'
+
 const numRows = 4
 const numColumns = 3
 
-const mcardWidth = 100
-const mcardHeight = 150
+const mcardWidth = 110
+const mcardHeight = 160
 
 const borderMargin = 40;
 const betweenCardsMargin = 10;
 
+let numOfMatchedCards = 0;
+let initialScore = 100;
 
 // load images and sounds before setup 
 function preload() {
@@ -30,7 +36,9 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(520, 550, WEBGL);
+  let canvas = createCanvas(canvasWidth, canvasHeight, WEBGL);
+  // add canvas as child to div to control its position easier 
+  canvas.parent("sketch")
   rectMode(CENTER);
   angleMode(DEGREES);
   for (let i = 0; i < numRows; i++) {
@@ -42,8 +50,12 @@ function setup() {
 }
 
 function draw() {
-  background(220);
+  background(canvasBackground);
   tiles.forEach(tile => tile.render());
+  if (numOfMatchedCards == 6) {
+    console.log("Finished!")
+    console.log(initialScore > 0 ? initialScore:0)
+  }
 }
 
 function mouseClicked() {
@@ -60,6 +72,7 @@ function mouseClicked() {
             if (firstCard.id === tile.id) { // it's a match
               firstCard.isEnabled = tile.isEnabled = false;  // disable the cards so they're not clickable anymore
               firstCard = null; // reset
+              numOfMatchedCards++;
             }
             else {
               isMouseClickEnabled = false; // prevent the user from clicking any other cards
@@ -69,6 +82,7 @@ function mouseClicked() {
                 firstCard = null // reset
                 isMouseClickEnabled = true;
               }, 1000)
+              initialScore -= 10;
             }
           }
         }
