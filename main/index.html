@@ -7,17 +7,26 @@
   <script src="js/card.js"></script>
   <script src="js/image.js"></script>
   <script src="js/sketch.js"></script>
+  <script src="js/modal.js" defer></script>
   <link rel="stylesheet" type="text/css" href="css/style.css" />
+  <link rel="stylesheet" type="text/css" href="css/modal.css" />
   <meta charset="utf-8" />
 </head>
 
 <body>
+
+  <!-- Header -->
   <header>
     <h1 class="header_text">Memory Game</h1>
   </header>
+  
+  <!-- Main Content -->
   <main>
     <div class="canvas_scores_container">
+      <!-- Canvas -->
       <div id="sketch"></div>
+
+      <!-- Scores -->
       <div class="scores">
         <span class="scores_text">Matched Cards:</span>
         <span id="matched_cards"></span>
@@ -25,6 +34,8 @@
         <span id="score"></span>
       </div>
     </div>
+
+    <!-- Tutorial -->
     <h2>How to play:</h2>
     <p class="howto_text">
       All of the cards are laid face down and two cards are
@@ -34,6 +45,8 @@
       pairs of matching cards.
     </p>
   </main>
+
+  <!-- Footer -->
   <footer>
     <div class="footer_item">
       <a href="https://github.com/sentouki/Memory-Game">
@@ -46,7 +59,20 @@
         <a href="http://www.freepik.com">Designed by macrovector / Freepik</a>
       </p>
     </div>
+
   </footer>
+  <!-- The Modal -->
+  <div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal_content">
+      <!-- Close button -->
+      <div class="modal_text">Finished!</div>
+      <!-- <div class="modal_text">Good Job!</div> -->
+      <div class="modal_close">&times;</div>
+    </div>
+
+  </div>
 </body>
 
 </html>

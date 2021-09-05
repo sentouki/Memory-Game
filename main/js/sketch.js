@@ -51,6 +51,8 @@ function setup() {
   // display initial values of the score and amount of matched cards
   updateScore(initialScore)
   updateNumOfMatchedCards(numOfMatchedCards)
+
+  // openModal()
 }
 
 function draw() {
@@ -79,6 +81,9 @@ function mouseClicked() {
               numOfMatchedCards++;
               console.log("numOfMatchedCards: ", numOfMatchedCards)
               updateNumOfMatchedCards(numOfMatchedCards);
+              if(numOfMatchedCards === (numRows * numColumns) / 2) {
+                openModal();
+              }
             }
             else {
               isMouseClickEnabled = false; // prevent the user from clicking any other cards
