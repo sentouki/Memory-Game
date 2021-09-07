@@ -18,34 +18,36 @@ const borderMargin = 40;
 const betweenCardsMargin = 10;
 
 let numOfMatchedCards = 0;
-let initialScore = 100;
+let score = 100;
+let highScore = getHighscore() ? getHighscore() : 0;
 
 
 // load images and sounds before setup 
 function preload() {
-  let i = 1
-  // load same number of images as cards into array
-  while (images.length < numRows * numColumns) {
-    let image = new cardImage("images/" + i + ".png", i);
-    images.push(image);
-    images.push(image);
-    i++;
-  }
-  // load sounds
-  soundFormats("ogg");
-  flipSound = loadSound("sounds/flip");
+    let i = 1
+    // load same number of images as cards into array
+    while (images.length < numRows * numColumns) {
+        let image = new cardImage("images/" + i + ".png", i);
+        images.push(image);
+        images.push(image);
+        i++;
+    }
+    // load sounds
+    soundFormats("ogg");
+    flipSound = loadSound("sounds/flip");
 }
 
 function setup() {
-  let canvas = createCanvas(canvasWidth, canvasHeight, WEBGL);
-  // add canvas as child to div to control its position easier 
-  canvas.parent("sketch")
-  rectMode(CENTER);
-  angleMode(DEGREES);
-  for (let i = 0; i < numRows; i++) {
-    for (let j = 0; j < numColumns; j++) {
-      let randomImage = images.splice(images.length * Math.random() | 0, 1)[0];
-      tiles.push(new Card(i * mcardWidth + i * betweenCardsMargin + borderMargin, j * mcardHeight + j * betweenCardsMargin + borderMargin, randomImage));
+    let canvas = createCanvas(canvasWidth, canvasHeight, WEBGL);
+    // add canvas as child to div to control its position easier 
+    canvas.parent("sketch")
+    rectMode(CENTER);
+    angleMode(DEGREES);
+    for (let i = 0; i < numRows; i++) {
+        for (let j = 0; j < numColumns; j++) {
+            let randomImage = images.splice(images.length * Math.random() | 0, 1)[0];
+            tiles.push(new Card(i * mcardWidth + i * betweenCardsMargin + borderMargin, j * mcardHeight + j * betweenCardsMargin + borderMargin, randomImage));
+        }
     }
   }
   // display initial values of the score and amount of matched cards
@@ -57,6 +59,12 @@ function setup() {
 function draw() {
   background(canvasBackground);
   tiles.forEach(tile => tile.render());
+  if (numOfMatchedCards == 6) {
+        if (score > highScore) {
+            saveHighscore(score);
+        }
+        updateHighscore(highScore);
+   }
 }
 
 function mouseClicked() {
@@ -87,7 +95,7 @@ function mouseClicked() {
                 firstCard = null // reset
                 isMouseClickEnabled = true;
               }, 1000)
-              initialScore -= 10;
+              score -= 10;
               updateScore(initialScore)
             }
           }

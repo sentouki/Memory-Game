@@ -10,6 +10,9 @@ body {
 .header_text {
   border-bottom: 4px solid rgba(247, 136, 136, 1);
   display: inline-block;
+  font-family: "Brush Script MT", Brussels;
+  font-size: 3em;
+  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.5);
 }
 
 .canvas_scores_container {
