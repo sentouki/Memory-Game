@@ -19,7 +19,7 @@
   <header>
     <h1 class="header_text">Memory Game</h1>
   </header>
-  
+
   <!-- Main Content -->
   <main>
     <div class="canvas_scores_container">
@@ -27,11 +27,16 @@
       <div id="sketch"></div>
 
       <!-- Scores -->
-      <div class="scores">
-        <span class="scores_text">Matched Cards:</span>
-        <span id="matched_cards"></span>
-        <span class="scores_text">Score:</span>
-        <span id="score"></span>
+      <div class="scores_and_restart">
+        <div class="scores">
+          <span class="scores_text">Matched Cards:</span>
+          <span id="matched_cards"></span>
+          <span class="scores_text">Score:</span>
+          <span id="score"></span>
+        </div>
+        <div class="restart_container">
+          <button class="restart_button button" onclick="restart()"><img src="images/restart.png" alt="restart" id="restart_icon">Restart</button>
+        </div>
       </div>
     </div>
 
@@ -66,9 +71,13 @@
 
     <!-- Modal content -->
     <div class="modal_content">
+      <div class="modal_image">🎊</div>
+      <div class="modal_header">Finished!</div>
+      <div class="modal_buttons">
+        <button class="button modal_close_button" onclick="closeModal()">Close</button>
+        <button class="button modal_restart_button" onclick="restartAndCloseModal()">Restart</button>
+      </div>
       <!-- Close button -->
-      <div class="modal_text">Finished!</div>
-      <!-- <div class="modal_text">Good Job!</div> -->
       <div class="modal_close">&times;</div>
     </div>
 

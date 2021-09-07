@@ -17,6 +17,13 @@ body {
   justify-content: center;
 }
 
+.scores_and_restart {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
 .scores {
   background-color: rgba(247, 136, 136, 0.315);
   margin-left: 20px;
@@ -37,6 +44,26 @@ body {
   width: fit-content;
 }
 
+.restart_container {
+  margin-left: 20px;
+  margin-bottom: 4px;
+}
+
+.restart_button {
+  background-color: rgba(151, 151, 151, 0.315);
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  font-size: 22px;
+  background-color: #4ED964;
+  color: #fff;
+}
+
+#restart_icon {
+  margin-right: 5px;
+}
+
+/* p5.js canvas */
 canvas {
   border-radius: 10px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;

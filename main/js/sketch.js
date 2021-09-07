@@ -52,20 +52,15 @@ function setup() {
   updateScore(initialScore)
   updateNumOfMatchedCards(numOfMatchedCards)
 
-  // openModal()
 }
 
 function draw() {
   background(canvasBackground);
   tiles.forEach(tile => tile.render());
-  if (numOfMatchedCards == 6) {
-    console.log("Finished!")
-    console.log(initialScore > 0 ? initialScore:0)
-  }
 }
 
 function mouseClicked() {
-  if (isMouseClickEnabled) {
+  if (isMouseClickEnabled && !modalOpen) {
     tiles.forEach(tile => {
       if ((mouseX > tile.x && mouseX < tile.x + mcardWidth) && mouseY > tile.y && mouseY < tile.y + mcardHeight) {
         if (tile.isEnabled && !tile.faceUp) { // flip only unrevealed cards
@@ -79,7 +74,6 @@ function mouseClicked() {
               firstCard.isEnabled = tile.isEnabled = false;  // disable the cards so they're not clickable anymore
               firstCard = null; // reset
               numOfMatchedCards++;
-              console.log("numOfMatchedCards: ", numOfMatchedCards)
               updateNumOfMatchedCards(numOfMatchedCards);
               if(numOfMatchedCards === (numRows * numColumns) / 2) {
                 openModal();
@@ -94,7 +88,6 @@ function mouseClicked() {
                 isMouseClickEnabled = true;
               }, 1000)
               initialScore -= 10;
-              console.log("initialScore: ", initialScore)
               updateScore(initialScore)
             }
           }
@@ -110,4 +103,13 @@ function updateNumOfMatchedCards(num) {
 
 function updateScore(num) {
   document.getElementById("score").innerHTML = num;
+}
+
+function restartGame() {
+  tiles.forEach(tile => {
+    tile.faceUp = false;
+    tile.isEnabled = true;
+  })
+  updateScore(100)
+  updateNumOfMatchedCards(0)
 }
