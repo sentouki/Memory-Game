@@ -8,27 +8,43 @@
   <script src="js/image.js"></script>
   <script src="js/helpers.js"></script>
   <script src="js/sketch.js"></script>
+  <script src="js/modal.js" defer></script>
   <link rel="icon" href="images/logo/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" type="text/css" href="css/style.css" />
+  <link rel="stylesheet" type="text/css" href="css/modal.css" />
   <meta charset="utf-8" />
 </head>
 
 <body>
+
+  <!-- Header -->
   <header>
     <h1 class="header_text">Memory Game</h1>
   </header>
+
+  <!-- Main Content -->
   <main>
     <div class="canvas_scores_container">
+      <!-- Canvas -->
       <div id="sketch"></div>
-      <div class="scores">
-        <span class="scores_text">Matched Cards:</span>
-        <span id="matched_cards"></span>
-        <span class="scores_text">Score:</span>
-        <span id="score"></span>
-        <span class="scores_text">Highscore:</span>
-        <span id="highscore"></span>
+
+      <!-- Scores -->
+      <div class="scores_and_restart">
+        <div class="scores">
+          <span class="scores_text">Matched Cards:</span>
+          <span id="matched_cards"></span>
+          <span class="scores_text">Score:</span>
+          <span id="score"></span>
+          <span class="scores_text">Highscore:</span>
+          <span id="highscore"></span>
+        </div>
+        <div class="restart_container">
+          <button class="restart_button button" onclick="restart()"><img src="images/restart.png" alt="restart" id="restart_icon">Restart</button>
+        </div>
       </div>
     </div>
+
+    <!-- Tutorial -->
     <h2>How to play:</h2>
     <p class="howto_text">
       All of the cards are laid face down and two cards are
@@ -38,6 +54,8 @@
       pairs of matching cards.
     </p>
   </main>
+
+  <!-- Footer -->
   <footer>
     <div class="footer_item">
       <a href="https://github.com/sentouki/Memory-Game">
@@ -50,7 +68,24 @@
         <a href="http://www.freepik.com">Designed by macrovector / Freepik</a>
       </p>
     </div>
+
   </footer>
+  <!-- The Modal -->
+  <div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal_content">
+      <div class="modal_image">🎊</div>
+      <div class="modal_header">Finished!</div>
+      <div class="modal_buttons">
+        <button class="button modal_close_button" onclick="closeModal()">Close</button>
+        <button class="button modal_restart_button" onclick="restartAndCloseModal()">Restart</button>
+      </div>
+      <!-- Close button -->
+      <div class="modal_close">&times;</div>
+    </div>
+
+  </div>
 </body>
 
 </html>
