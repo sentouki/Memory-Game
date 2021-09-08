@@ -24,47 +24,46 @@ let highScore = getHighscore() ? getHighscore() : 0;
 
 // load images and sounds before setup 
 function preload() {
-    let i = 1
-    // load same number of images as cards into array
-    while (images.length < numRows * numColumns) {
-        let image = new cardImage("images/" + i + ".png", i);
-        images.push(image);
-        images.push(image);
-        i++;
-    }
-    // load sounds
-    soundFormats("ogg");
-    flipSound = loadSound("sounds/flip");
+  let i = 1
+  // load same number of images as cards into array
+  while (images.length < numRows * numColumns) {
+    let image = new cardImage("images/" + i + ".png", i);
+    images.push(image);
+    images.push(image);
+    i++;
+  }
+  // load sounds
+  soundFormats("ogg");
+  flipSound = loadSound("sounds/flip");
 }
 
 function setup() {
-    let canvas = createCanvas(canvasWidth, canvasHeight, WEBGL);
-    // add canvas as child to div to control its position easier 
-    canvas.parent("sketch")
-    rectMode(CENTER);
-    angleMode(DEGREES);
-    for (let i = 0; i < numRows; i++) {
-        for (let j = 0; j < numColumns; j++) {
-            let randomImage = images.splice(images.length * Math.random() | 0, 1)[0];
-            tiles.push(new Card(i * mcardWidth + i * betweenCardsMargin + borderMargin, j * mcardHeight + j * betweenCardsMargin + borderMargin, randomImage));
-        }
+  let canvas = createCanvas(canvasWidth, canvasHeight, WEBGL);
+  // add canvas as child to div to control its position easier 
+  canvas.parent("sketch")
+  rectMode(CENTER);
+  angleMode(DEGREES);
+  for (let i = 0; i < numRows; i++) {
+    for (let j = 0; j < numColumns; j++) {
+      let randomImage = images.splice(images.length * Math.random() | 0, 1)[0];
+      tiles.push(new Card(i * mcardWidth + i * betweenCardsMargin + borderMargin, j * mcardHeight + j * betweenCardsMargin + borderMargin, randomImage));
     }
   }
   // display initial values of the score and amount of matched cards
-  updateScore(initialScore)
+  updateScore(score)
   updateNumOfMatchedCards(numOfMatchedCards)
-
+  updateHighscore(highScore)
 }
 
 function draw() {
   background(canvasBackground);
   tiles.forEach(tile => tile.render());
   if (numOfMatchedCards == 6) {
-        if (score > highScore) {
-            saveHighscore(score);
-        }
-        updateHighscore(highScore);
-   }
+    if (score > highScore) {
+      saveHighscore(score);
+    }
+    updateHighscore(highScore);
+  }
 }
 
 function mouseClicked() {
@@ -83,7 +82,7 @@ function mouseClicked() {
               firstCard = null; // reset
               numOfMatchedCards++;
               updateNumOfMatchedCards(numOfMatchedCards);
-              if(numOfMatchedCards === (numRows * numColumns) / 2) {
+              if (numOfMatchedCards === (numRows * numColumns) / 2) {
                 openModal();
               }
             }
@@ -96,7 +95,7 @@ function mouseClicked() {
                 isMouseClickEnabled = true;
               }, 1000)
               score -= 10;
-              updateScore(initialScore)
+              updateScore(score)
             }
           }
         }
