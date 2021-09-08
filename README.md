@@ -5,8 +5,8 @@
 </h1>
 
 
-<p align="center"><a href="https://en.wikipedia.org/wiki/Concentration_(card_game)">Memory Game</a> is simple game to
-  train your memory.
+<p align="center"><a href="https://en.wikipedia.org/wiki/Concentration_(card_game)">Memory Game</a> is a simple game to
+  train your memory and have fun while doing so.
 </p align="center">
 <p align="center">The game is written in JS using the <a href="https://github.com/processing/p5.js">p5.js</a> library.
 </p>
