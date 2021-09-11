@@ -3,15 +3,16 @@ function updateNumOfMatchedCards(num) {
 }
 
 function updateScore(num) {
-  document.getElementById("score").innerHTML = num;
+  document.getElementById("score").innerHTML = num > 0 ? num : 0;
 }
 
 function updateHighscore(num) {
-  document.getElementById("highscore").innerHTML = num;
+  document.getElementById("highscore").innerHTML = num > 0 ? num : 0;
 }
 
 function saveHighscore(num) {
   document.cookie = `highscore=${num}; max-age=31536000`;
+  updateHighscore(num);
 }
 
 function getHighscore() {

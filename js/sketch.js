@@ -1,8 +1,9 @@
-let tiles = []
 let images = []
+let cards = []
 let flipSound;
 let firstCard;
 let isMouseClickEnabled = true;
+let isRestartEnabled = true;
 
 const canvasWidth = 550;
 const canvasHeight = 590;
@@ -21,16 +22,14 @@ let numOfMatchedCards = 0;
 let score = 100;
 let highScore = getHighscore() ? getHighscore() : 0;
 
+const numOfImages = 19; // number of images in images/animals directory
+
 
 // load images and sounds before setup 
 function preload() {
-  let i = 1
-  // load same number of images as cards into array
-  while (images.length < numRows * numColumns) {
-    let image = new cardImage("images/" + i + ".png", i);
+  for (let i = 1; i <= numOfImages; i++) {
+    let image = loadImage(`images/animals/${i}.png`);
     images.push(image);
-    images.push(image);
-    i++;
   }
   // load sounds
   soundFormats("ogg");
@@ -43,12 +42,7 @@ function setup() {
   canvas.parent("sketch")
   rectMode(CENTER);
   angleMode(DEGREES);
-  for (let i = 0; i < numRows; i++) {
-    for (let j = 0; j < numColumns; j++) {
-      let randomImage = images.splice(images.length * Math.random() | 0, 1)[0];
-      tiles.push(new Card(i * mcardWidth + i * betweenCardsMargin + borderMargin, j * mcardHeight + j * betweenCardsMargin + borderMargin, randomImage));
-    }
-  }
+  shuffleCards();
   // display initial values of the score and amount of matched cards
   updateScore(score)
   updateNumOfMatchedCards(numOfMatchedCards)
@@ -57,20 +51,14 @@ function setup() {
 
 function draw() {
   background(canvasBackground);
-  tiles.forEach(tile => tile.render());
-  if (numOfMatchedCards == 6) {
-    if (score > highScore) {
-      saveHighscore(score);
-    }
-    updateHighscore(highScore);
-  }
+  cards.forEach(tile => tile.render());
 }
 
 function mouseClicked() {
   if (isMouseClickEnabled && !modalOpen) {
-    tiles.forEach(tile => {
+    cards.forEach(tile => {
       if ((mouseX > tile.x && mouseX < tile.x + mcardWidth) && mouseY > tile.y && mouseY < tile.y + mcardHeight) {
-        if (tile.isEnabled && !tile.faceUp) { // flip only unrevealed cards
+        if (!tile.faceUp) { // flip only unrevealed cards
           flipSound.play();
           tile.turn();
           if (!firstCard) {
@@ -78,21 +66,24 @@ function mouseClicked() {
           }
           else { // second card flipped
             if (firstCard.id === tile.id) { // it's a match
-              firstCard.isEnabled = tile.isEnabled = false;  // disable the cards so they're not clickable anymore
               firstCard = null; // reset
               numOfMatchedCards++;
               updateNumOfMatchedCards(numOfMatchedCards);
               if (numOfMatchedCards === (numRows * numColumns) / 2) {
+                if (score > highScore) {
+                  highScore = score;
+                  saveHighscore(score);
+                }
                 openModal();
               }
             }
             else {
-              isMouseClickEnabled = false; // prevent the user from clicking any other cards
+              isMouseClickEnabled = isRestartEnabled = false; // prevent the user from clicking any other cards or restart the game which might cause a glitch
               setTimeout(() => {
                 firstCard.turn();
                 tile.turn();
                 firstCard = null // reset
-                isMouseClickEnabled = true;
+                isMouseClickEnabled = isRestartEnabled = true;
               }, 1000)
               score -= 10;
               updateScore(score)
@@ -104,19 +95,37 @@ function mouseClicked() {
   }
 }
 
-function updateNumOfMatchedCards(num) {
-  document.getElementById("matched_cards").innerHTML = num;
-}
-
-function updateScore(num) {
-  document.getElementById("score").innerHTML = num;
+function shuffleCards() {
+  cards = []  // reset
+  images.sort(() => Math.random() - 0.5) // shuffle the images
+  for (let i = 0; i < (numRows*numColumns)/2; i++) {
+    cards.push(new Card(images[i], i))
+    cards.push(new Card(images[i], i))
+  }
+  cards.sort(() => Math.random() - 0.5) // shuffle the cards
+  let index = 0
+  for (let i = 0; i < numRows; i++) {
+    for (let j = 0; j < numColumns; j++) {
+      cards[index].setCoords(i * mcardWidth + i * betweenCardsMargin + borderMargin, j * mcardHeight + j * betweenCardsMargin + borderMargin);
+      index++;
+    }
+  }
 }
 
 function restartGame() {
-  tiles.forEach(tile => {
-    tile.faceUp = false;
-    tile.isEnabled = true;
-  })
-  updateScore(100)
-  updateNumOfMatchedCards(0)
+  if (isRestartEnabled) {
+    isRestartEnabled = isMouseClickEnabled = false
+    cards.forEach(tile => {
+      tile.faceUp = false;
+    })
+    setTimeout(()=>{    // delay for the flip animation
+      shuffleCards()
+      score = 100
+      numOfMatchedCards = 0
+      firstCard = null
+      updateScore(score)
+      updateNumOfMatchedCards(numOfMatchedCards)
+      isRestartEnabled = isMouseClickEnabled = true
+    }, 500)
+  }
 }

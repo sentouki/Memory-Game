@@ -3,16 +3,15 @@ const rotateLevitation = 0.6
 
 // basic card class which represents card with two sides
 class Card {
-  constructor(x, y, downSideImage) {
-    this.x = x;
-    this.y = y;
+  constructor(downSideImage, id) {
+    this.x = 0;
+    this.y = 0;
     this.downSideImage = downSideImage;
-    this.id = downSideImage.id;
+    this.id = id;
     this.upColor = '#5DA2D5';
     this.stroke = '#F3D250';
     this.faceUp = false;
-    this.isEnabled = true;
-    this.rot = 0;
+    this.rot = 0;   // angle of the rotation in degrees
   }
   render() {
     push();
@@ -28,7 +27,7 @@ class Card {
 
     // down side
     translate(0, 0, -1);
-    texture(this.downSideImage.image);
+    texture(this.downSideImage);
     // fix the borders caused by making the down side smaller
     noStroke()
     rect(0, 0, mcardWidth - 10, mcardHeight / 1.5);
@@ -62,5 +61,9 @@ class Card {
         this.y -= rotateLevitation;
       }
     }
+  }
+  setCoords(x, y) {
+    this.x = x;
+    this.y = y;
   }
 }
