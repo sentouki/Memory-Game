@@ -1,6 +1,7 @@
 let images = []
 let cards = []
 let flipSound;
+let matchSound;
 let firstCard;
 let isMouseClickEnabled = true;
 let isRestartEnabled = true;
@@ -32,14 +33,15 @@ function preload() {
     images.push(image);
   }
   // load sounds
-  soundFormats("ogg");
-  flipSound = loadSound("sounds/flip");
+  flipSound = loadSound("sounds/flip.mp3");
+  matchSound = loadSound("sounds/match.mp3");
 }
 
 function setup() {
   let canvas = createCanvas(canvasWidth, canvasHeight, WEBGL);
   // add canvas as child to div to control its position easier 
   canvas.parent("sketch")
+  canvas.touchEnded(mouseClicked)  // for mobile phones
   rectMode(CENTER);
   angleMode(DEGREES);
   shuffleCards();
@@ -67,6 +69,7 @@ function mouseClicked() {
           else { // second card flipped
             if (firstCard.id === tile.id) { // it's a match
               firstCard = null; // reset
+              matchSound.play();
               numOfMatchedCards++;
               updateNumOfMatchedCards(numOfMatchedCards);
               if (numOfMatchedCards === (numRows * numColumns) / 2) {
