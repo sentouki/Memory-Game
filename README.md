@@ -1,7 +1,6 @@
 <h1 align="center">
-  <img style="margin:-30px 15px -15px 0px;" width="250"
-    src="https://raw.githubusercontent.com/sentouki/Memory-Game/master/main/images/logo/logo_smaller.png">
-  </img>
+  <img style="margin:-30px 15px -15px 0px;" width="350"
+    src="https://raw.githubusercontent.com/sentouki/Memory-Game/master/images/logo/logo_smaller.png"/>
 </h1>
 
 
