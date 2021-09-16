@@ -128,6 +128,10 @@ footer {
     justify-content: space-between;
   }
 
+  .modal_content {
+    width: 40% !important;
+  }
+
   footer {
     position:relative
   }
