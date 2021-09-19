@@ -104,30 +104,36 @@ footer {
 
 /* mobile view */
 
-@media only screen and (max-width: 1200px) {
+@media only screen and (max-width: 450px) {
   .canvas_scores_container {
     display: flex;
     justify-content: center;
     flex-direction: column;
-    /* background-color: red; */
   }
 
   canvas {
-    margin-left: 0;
-    width: 375px !important;
+    margin: 0;
+    width: 98vw !important;
     height: auto !important;
-    text-align: center;
   }
 
   .scores {
     /* margin-left: 6px; */
     font-size: 30px;
+    align-self: stretch;
+    width: auto;
+    margin: 10px;
+  }
+
+  .restart_container {
+    align-self: center;
+    margin: 10px 0;
   }
 
   .scores_and_restart {
     display: flex;
-    flex-direction: row;
-    align-items: flex-start;
+    flex-direction: column;
+    align-items: stretch;
     justify-content: space-between;
   }
 
