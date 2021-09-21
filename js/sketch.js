@@ -29,7 +29,7 @@ const numOfImages = 19; // number of images in images/animals directory
 // load images and sounds before setup 
 function preload() {
   for (let i = 1; i <= numOfImages; i++) {
-    let image = loadImage(`images/animals/${i}.png`);
+    let image = loadImage(`images/animals/${i}.webp`);
     images.push(image);
   }
   // load sounds
@@ -101,7 +101,7 @@ function mouseClicked() {
 function shuffleCards() {
   cards = []  // reset
   images.sort(() => Math.random() - 0.5) // shuffle the images
-  for (let i = 0; i < (numRows*numColumns)/2; i++) {
+  for (let i = 0; i < (numRows * numColumns) / 2; i++) {
     cards.push(new Card(images[i], i))
     cards.push(new Card(images[i], i))
   }
@@ -121,7 +121,7 @@ function restartGame() {
     cards.forEach(tile => {
       tile.faceUp = false;
     })
-    setTimeout(()=>{    // delay for the flip animation
+    setTimeout(() => {    // delay for the flip animation
       shuffleCards()
       score = 100
       numOfMatchedCards = 0
